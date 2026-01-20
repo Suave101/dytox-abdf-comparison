@@ -3,25 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DyTox vs. ABDF Comparison</title>
+    <title>Florida Tech: DyTox vs. ABDF Comparison</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css" />
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        /* Florida Tech Official Colors */
+        :root {
+            --fit-crimson: #770000;
+            --fit-gold: #AB946C;
+            --fit-gray: #CBCCCE;
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f3f4f6;
+        }
+
+        /* Custom Classes for FIT Branding */
+        .text-fit-crimson { color: var(--fit-crimson); }
+        .bg-fit-crimson { background-color: var(--fit-crimson); color: white; }
+        
+        .text-fit-gold { color: var(--fit-gold); }
+        .bg-fit-gold { background-color: var(--fit-gold); color: white; }
+
+        /* Overriding Table Header */
+        .table-header-fit {
+            background-color: var(--fit-crimson);
+            color: white; 
+            font-weight: bold;
+        }
+        
+        /* Gold Accent Line */
+        .gold-divider {
+            border-top: 4px solid var(--fit-gold);
+        }
     </style>
 </head>
-<body class="bg-base-200 min-h-screen p-8">
+<body class="min-h-screen p-8">
 
     <div class="container mx-auto max-w-5xl">
+        
         <div class="text-center mb-10">
-            <h1 class="text-4xl font-bold mb-4 text-primary">DyTox vs. Adapt, But Don't Forget (ABDF)</h1>
-            <p class="text-lg opacity-70">A Boolean Comparison of Incremental Learning vs. Domain Adaptation Strategies</p>
+            <h2 class="text-3xl font-bold text-gray-700">DyTox vs. Adapt, But Don't Forget (ABDF)</h2>
+            <p class="text-lg text-gray-500 mt-2">A Comparison of Continual Learning Strategies</p>
         </div>
 
-        <div class="card bg-base-100 shadow-xl overflow-hidden">
+        <div class="card bg-base-100 shadow-2xl overflow-hidden gold-divider">
             <div class="overflow-x-auto">
-                <table class="table table-zebra w-full">
-                    <thead class="bg-base-300 text-base-content text-lg">
+                <table class="table w-full">
+                    <thead class="table-header-fit text-lg">
                         <tr>
                             <th class="w-1/3 pl-6">Feature / Component</th>
                             <th class="text-center w-1/6">DyTox</th>
@@ -31,76 +61,98 @@
                     </thead>
                     <tbody>
                         
-                        <tr class="bg-base-200 font-bold text-secondary uppercase tracking-wider text-xs">
-                            <td colspan="4" class="pl-6 pt-4">Problem Scenario</td>
+                        <tr class="bg-gray-200 font-bold uppercase tracking-wider text-xs text-gray-700">
+                            <td colspan="4" class="pl-6 pt-4 border-l-4 border-fit-gold">Shared Strategy (Similarities)</td>
                         </tr>
                         <tr class="hover">
-                            <td class="pl-6 font-medium">Class-Incremental Learning (CIL)</td>
-                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
-                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
-                            <td class="text-sm opacity-80">DyTox adds new object classes (e.g., Cat &rarr; Dog).</td>
+                            <td class="pl-6 font-medium text-gray-800">Uses Parameter Expansion</td>
+                            <td class="text-center"><div class="badge bg-blue-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-center"><div class="badge bg-blue-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-sm text-gray-600">Both add parameters (Tokens vs. Branches) instead of fixed capacity.</td>
                         </tr>
                         <tr class="hover">
-                            <td class="pl-6 font-medium">Domain Shift / Adaptation</td>
-                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
-                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
-                            <td class="text-sm opacity-80">ABDF handles visual changes (e.g., Highway &rarr; Taxiway) for the same task.</td>
+                            <td class="pl-6 font-medium text-gray-800">Preserves Old Weights (Freezing)</td>
+                            <td class="text-center"><div class="badge bg-blue-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-center"><div class="badge bg-blue-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-sm text-gray-600">Freezes parts of the network (Old Tokens vs. Source Branch) to stop forgetting.</td>
+                        </tr>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium text-gray-800">Input-Dependent Processing</td>
+                            <td class="text-center"><div class="badge bg-blue-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-center"><div class="badge bg-blue-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-sm text-gray-600">Path changes based on input (Task Tokens vs. Router selection).</td>
                         </tr>
 
-                        <tr class="bg-base-200 font-bold text-secondary uppercase tracking-wider text-xs">
-                            <td colspan="4" class="pl-6 pt-4">Architecture Strategy</td>
+                        <tr class="bg-gray-200 font-bold uppercase tracking-wider text-xs text-gray-700">
+                            <td colspan="4" class="pl-6 pt-4 border-l-4 border-fit-gold">Problem Scenario (Differences)</td>
                         </tr>
                         <tr class="hover">
-                            <td class="pl-6 font-medium">Dynamic Token Expansion</td>
-                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
-                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
-                            <td class="text-sm opacity-80">DyTox adds learnable tokens to a Transformer backbone.</td>
+                            <td class="pl-6 font-medium text-gray-800">Class-Incremental Learning (CIL)</td>
+                            <td class="text-center"><div class="badge bg-green-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-40">FALSE</div></td>
+                            <td class="text-sm text-gray-600">DyTox adds new object classes (e.g., Cat &rarr; Dog).</td>
                         </tr>
                         <tr class="hover">
-                            <td class="pl-6 font-medium">Modular Branching</td>
-                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
-                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
-                            <td class="text-sm opacity-80">ABDF physically copies specific modules (Neck/Head).</td>
-                        </tr>
-                        <tr class="hover">
-                            <td class="pl-6 font-medium">Hard Routing (Selector)</td>
-                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
-                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
-                            <td class="text-sm opacity-80">ABDF selects one specific branch per input via a trained router.</td>
+                            <td class="pl-6 font-medium text-gray-800">Domain Shift / Adaptation</td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-40">FALSE</div></td>
+                            <td class="text-center"><div class="badge bg-green-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-sm text-gray-600">ABDF handles visual changes (e.g., Highway &rarr; Taxiway).</td>
                         </tr>
 
-                        <tr class="bg-base-200 font-bold text-secondary uppercase tracking-wider text-xs">
-                            <td colspan="4" class="pl-6 pt-4">Loss Functions</td>
+                        <tr class="bg-gray-200 font-bold uppercase tracking-wider text-xs text-gray-700">
+                            <td colspan="4" class="pl-6 pt-4 border-l-4 border-fit-gold">Architecture Strategy</td>
                         </tr>
                         <tr class="hover">
-                            <td class="pl-6 font-medium">Binary Cross-Entropy (BCE)</td>
-                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
-                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
-                            <td class="text-sm opacity-80">DyTox uses BCE to replace Softmax for independent class probabilities.</td>
+                            <td class="pl-6 font-medium text-gray-800">Dynamic Token Expansion</td>
+                            <td class="text-center"><div class="badge bg-green-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-40">FALSE</div></td>
+                            <td class="text-sm text-gray-600">DyTox adds learnable tokens to a Transformer backbone.</td>
                         </tr>
                         <tr class="hover">
-                            <td class="pl-6 font-medium">Knowledge Distillation (KD)</td>
-                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
-                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
-                            <td class="text-sm opacity-80">DyTox regularizes via a teacher; ABDF freezes weights instead.</td>
+                            <td class="pl-6 font-medium text-gray-800">Modular Branching</td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-40">FALSE</div></td>
+                            <td class="text-center"><div class="badge bg-green-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-sm text-gray-600">ABDF physically copies specific modules (Neck/Head).</td>
                         </tr>
                         <tr class="hover">
-                            <td class="pl-6 font-medium">Divergence / Diversity Loss</td>
-                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
-                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
-                            <td class="text-sm opacity-80">DyTox minimizes Cosine Similarity to force orthogonal tokens.</td>
+                            <td class="pl-6 font-medium text-gray-800">Hard Routing (Selector)</td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-40">FALSE</div></td>
+                            <td class="text-center"><div class="badge bg-green-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-sm text-gray-600">ABDF selects one specific branch per input via a trained router.</td>
+                        </tr>
+
+                        <tr class="bg-gray-200 font-bold uppercase tracking-wider text-xs text-gray-700">
+                            <td colspan="4" class="pl-6 pt-4 border-l-4 border-fit-gold">Loss Functions</td>
                         </tr>
                         <tr class="hover">
-                            <td class="pl-6 font-medium">Supervised Contrastive Loss (SCL)</td>
-                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
-                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
-                            <td class="text-sm opacity-80">Used in ABDF to train the Router to distinguish domains.</td>
+                            <td class="pl-6 font-medium text-gray-800">Binary Cross-Entropy (BCE)</td>
+                            <td class="text-center"><div class="badge bg-green-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-40">FALSE</div></td>
+                            <td class="text-sm text-gray-600">DyTox uses BCE to replace Softmax for independent classes.</td>
                         </tr>
-                         <tr class="hover">
-                            <td class="pl-6 font-medium">Regression / IoU Loss</td>
-                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
-                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
-                            <td class="text-sm opacity-80">Specific to the Anchor-based Lane Detection task in ABDF.</td>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium text-gray-800">Knowledge Distillation (KD)</td>
+                            <td class="text-center"><div class="badge bg-green-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-40">FALSE</div></td>
+                            <td class="text-sm text-gray-600">DyTox regularizes via a teacher; ABDF freezes weights instead.</td>
+                        </tr>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium text-gray-800">Divergence / Diversity Loss</td>
+                            <td class="text-center"><div class="badge bg-green-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-40">FALSE</div></td>
+                            <td class="text-sm text-gray-600">DyTox minimizes Cosine Similarity to force orthogonal tokens.</td>
+                        </tr>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium text-gray-800">Supervised Contrastive Loss (SCL)</td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-40">FALSE</div></td>
+                            <td class="text-center"><div class="badge bg-green-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-sm text-gray-600">Used in ABDF to train the Router to distinguish domains.</td>
+                        </tr>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium text-gray-800">Regression / IoU Loss</td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-40">FALSE</div></td>
+                            <td class="text-center"><div class="badge bg-green-600 border-none text-white font-bold">TRUE</div></td>
+                            <td class="text-sm text-gray-600">Specific to the Anchor-based Lane Detection task in ABDF.</td>
                         </tr>
 
                     </tbody>
@@ -109,16 +161,24 @@
         </div>
         
         <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="card bg-primary text-primary-content shadow-lg">
+            <div class="card bg-fit-crimson shadow-xl">
                 <div class="card-body">
-                    <h2 class="card-title">DyTox Strategy</h2>
-                    <p>Focuses on <strong>Class Expansion</strong>. It assumes the visual domain is constant but the vocabulary grows. It solves this by adding specialized "query tokens" to a shared Transformer backbone.</p>
+                    <h2 class="card-title text-2xl text-white border-b-2 border-white/20 pb-2">
+                        DyTox Strategy
+                    </h2>
+                    <p class="text-white/90">
+                        Focuses on <strong>Class Expansion</strong>. It assumes the visual domain is constant but the vocabulary grows. It solves this by adding specialized "query tokens" to a shared Transformer backbone.
+                    </p>
                 </div>
             </div>
-            <div class="card bg-secondary text-secondary-content shadow-lg">
+            <div class="card bg-fit-gold shadow-xl">
                 <div class="card-body">
-                    <h2 class="card-title">ABDF Strategy</h2>
-                    <p>Focuses on <strong>Domain Expansion</strong>. It assumes the vocabulary (Lanes) is constant but the environment changes. It solves this by creating physical branches and routing inputs based on appearance.</p>
+                    <h2 class="card-title text-2xl text-white border-b-2 border-white/20 pb-2">
+                        ABDF Strategy
+                    </h2>
+                    <p class="text-white/90">
+                        Focuses on <strong>Domain Expansion</strong>. It assumes the vocabulary (Lanes) is constant but the environment changes. It solves this by creating physical branches and routing inputs based on appearance.
+                    </p>
                 </div>
             </div>
         </div>
