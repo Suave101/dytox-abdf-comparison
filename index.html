@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DyTox vs. ABDF Comparison</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    </style>
+</head>
+<body class="bg-base-200 min-h-screen p-8">
+
+    <div class="container mx-auto max-w-5xl">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold mb-4 text-primary">DyTox vs. Adapt, But Don't Forget (ABDF)</h1>
+            <p class="text-lg opacity-70">A Boolean Comparison of Incremental Learning vs. Domain Adaptation Strategies</p>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="table table-zebra w-full">
+                    <thead class="bg-base-300 text-base-content text-lg">
+                        <tr>
+                            <th class="w-1/3 pl-6">Feature / Component</th>
+                            <th class="text-center w-1/6">DyTox</th>
+                            <th class="text-center w-1/6">ABDF</th>
+                            <th class="w-1/3">Context / Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr class="bg-base-200 font-bold text-secondary uppercase tracking-wider text-xs">
+                            <td colspan="4" class="pl-6 pt-4">Problem Scenario</td>
+                        </tr>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium">Class-Incremental Learning (CIL)</td>
+                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
+                            <td class="text-sm opacity-80">DyTox adds new object classes (e.g., Cat &rarr; Dog).</td>
+                        </tr>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium">Domain Shift / Adaptation</td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
+                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
+                            <td class="text-sm opacity-80">ABDF handles visual changes (e.g., Highway &rarr; Taxiway) for the same task.</td>
+                        </tr>
+
+                        <tr class="bg-base-200 font-bold text-secondary uppercase tracking-wider text-xs">
+                            <td colspan="4" class="pl-6 pt-4">Architecture Strategy</td>
+                        </tr>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium">Dynamic Token Expansion</td>
+                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
+                            <td class="text-sm opacity-80">DyTox adds learnable tokens to a Transformer backbone.</td>
+                        </tr>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium">Modular Branching</td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
+                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
+                            <td class="text-sm opacity-80">ABDF physically copies specific modules (Neck/Head).</td>
+                        </tr>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium">Hard Routing (Selector)</td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
+                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
+                            <td class="text-sm opacity-80">ABDF selects one specific branch per input via a trained router.</td>
+                        </tr>
+
+                        <tr class="bg-base-200 font-bold text-secondary uppercase tracking-wider text-xs">
+                            <td colspan="4" class="pl-6 pt-4">Loss Functions</td>
+                        </tr>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium">Binary Cross-Entropy (BCE)</td>
+                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
+                            <td class="text-sm opacity-80">DyTox uses BCE to replace Softmax for independent class probabilities.</td>
+                        </tr>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium">Knowledge Distillation (KD)</td>
+                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
+                            <td class="text-sm opacity-80">DyTox regularizes via a teacher; ABDF freezes weights instead.</td>
+                        </tr>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium">Divergence / Diversity Loss</td>
+                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
+                            <td class="text-sm opacity-80">DyTox minimizes Cosine Similarity to force orthogonal tokens.</td>
+                        </tr>
+                        <tr class="hover">
+                            <td class="pl-6 font-medium">Supervised Contrastive Loss (SCL)</td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
+                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
+                            <td class="text-sm opacity-80">Used in ABDF to train the Router to distinguish domains.</td>
+                        </tr>
+                         <tr class="hover">
+                            <td class="pl-6 font-medium">Regression / IoU Loss</td>
+                            <td class="text-center"><div class="badge badge-ghost opacity-50">FALSE</div></td>
+                            <td class="text-center"><div class="badge badge-success font-bold text-white">TRUE</div></td>
+                            <td class="text-sm opacity-80">Specific to the Anchor-based Lane Detection task in ABDF.</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="card bg-primary text-primary-content shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title">DyTox Strategy</h2>
+                    <p>Focuses on <strong>Class Expansion</strong>. It assumes the visual domain is constant but the vocabulary grows. It solves this by adding specialized "query tokens" to a shared Transformer backbone.</p>
+                </div>
+            </div>
+            <div class="card bg-secondary text-secondary-content shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title">ABDF Strategy</h2>
+                    <p>Focuses on <strong>Domain Expansion</strong>. It assumes the vocabulary (Lanes) is constant but the environment changes. It solves this by creating physical branches and routing inputs based on appearance.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
